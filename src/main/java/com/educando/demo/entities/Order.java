@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.educando.demo.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -100,6 +101,14 @@ public class Order implements Serializable {
 
 	public Set<OrderItem> getItems() {
 		return items;
+	}
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for (OrderItem x : items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
 	}
 
 	@Override
